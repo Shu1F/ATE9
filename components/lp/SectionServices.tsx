@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import type { ServicesContent } from "@/types/landing";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -13,31 +13,16 @@ type SectionServicesProps = {
 
 export function SectionServices({ content }: SectionServicesProps) {
   const services = useMemo(
-    () => content.items,
+    () => content.items || [],
     [content.items]
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef.current ? containerRef : undefined,
-    offset: ["start end", "end start"],
-  });
-
-  // スクロールに連動してインデックスを更新（自動再生時は無効化）
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (!isAutoPlaying) {
-      const newIndex = Math.min(
-        Math.floor(latest * services.length),
-        services.length - 1
-      );
-      setCurrentIndex(newIndex);
-    }
-  });
 
   // 自動切り替え
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || services.length === 0) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % services.length);
@@ -85,7 +70,18 @@ export function SectionServices({ content }: SectionServicesProps) {
   };
 
   if (services.length === 0) {
-    return null;
+    return (
+      <section
+        className="bg-section-pastel dark:bg-gray-900/50"
+        id="services"
+      >
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <p className="text-center text-text-body">
+            No services available
+          </p>
+        </div>
+      </section>
+    );
   }
 
   const safeIndex = Math.min(currentIndex, services.length - 1);
