@@ -1,16 +1,6 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #497CFF;
-  --color-background-light: #FFFFFF;
-  --color-text-headings: #222222;
-  --color-text-body: #555555;
-  --color-section-light: #F7F7F7;
-  --color-section-pastel: #F0F5FF;
-  --font-display: var(--font-space-grotesk);
-}
-
-/* Tailwind v4では、ハイフンを含むカラー名を直接使うために、カスタムプロパティとして定義 */
+/* Tailwind v4 の theme 相当は一旦未使用のため、単純なユーティリティクラスとして定義 */
 @layer utilities {
   .bg-background-light {
     background-color: #FFFFFF;

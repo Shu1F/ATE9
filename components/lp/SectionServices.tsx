@@ -2,54 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import type { ServicesContent } from "@/types/landing";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-interface ServiceItem {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  backgroundColor: string;
-}
+type SectionServicesProps = {
+  content: ServicesContent;
+};
 
-const services: ServiceItem[] = [
-  {
-    id: "creative-production",
-    title: "Creative Production & Visual Design",
-    description:
-      "We are a full-service creative agency specializing in visual content, motion graphics, and interactive experiences for the digital age. Elevate your brand with our innovative solutions.",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAxr-8iBAHDhLLfZuVWOXQvRI3RkD5YQeqsi6_ZKE076VGl29r-QyfJOMoZyvPvoAfuhzxU-3Ti0Qf_wnPSvffSU09iBmwZFuLIMpSMtOxrDMWkRj4qMZjFb5Sa3gKRrzOq3_n3GIhZUmVRul5ypCQBYpBnepXJrWB3ew9KHurAYKllqc949T8fluPQHVN3mCjIxTcRXp17kOweHwSMAh5VP2sQABUvv1k1W6CGo1fd-DJE7_YnST7Cq6i35N5UR3EkIc9SQfmSVNo",
-    backgroundColor: "#F2426D",
-  },
-  {
-    id: "brand-strategy",
-    title: "Brand Strategy & Identity",
-    description:
-      "We help businesses build strong, memorable brands that resonate with their target audience. From logo design to comprehensive brand guidelines, we create cohesive visual identities.",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDcIgelrIJrVYREYU3mJWRQoN0k5l6xI69V-zUbhU7galVQISVb2SDTvYU8nddUD72cbh5f_i-dRfy91G86bKDr7y9dVprvu0bQ2CPvwLceE5A2fyqwwW6beLkV-oFzGbQ8J_tjR20nuiTnzIgVwXwNsOX4ZCm3C4P8JdrGYk4bt2b6k6MEkuypriTg9p5OIkrrhvEfoPNg29xOwm5lj0Xzma9TNQ4DUv4dh3Rblkkbqw9ehIWFi4FK_rbF0FAdOzwPF49VRTxirBw",
-    backgroundColor: "#E4EEFA",
-  },
-  {
-    id: "digital-experience",
-    title: "Digital Experience Design",
-    description:
-      "Creating intuitive and engaging digital experiences that users love. We combine user research, design thinking, and cutting-edge technology to deliver exceptional results.",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBFjoonk0jREp72pVriB1yhJ-iqPtPIXBEacYNDL_F53CHi3SCRhkpnvmVvJFxD13MNSqclmjWf5k7VYwFsGgksYFdWeys0iAmmYK2tMg9C_TSW-8LQIsajWn6HkLFOMpMEjQj1eWsJQxUONNoZNuCNKKK4hyviEZYd_nVNJKmXM29vbiL9AniUEyCbVeZthACstlgfT6vC9rWT2ZWLScl_hhqXHGGjT4ERw9MU5ISu43cQL4JA-tASQPDjNNHGXXKgwt3ovzGj94g",
-    backgroundColor: "#F0F5FF",
-  },
-];
-
-export function SectionServices() {
+export function SectionServices({ content }: SectionServicesProps) {
+  const services = useMemo(
+    () => content.items,
+    [content.items]
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: containerRef.current ? containerRef : undefined,
     offset: ["start end", "end start"],
   });
 
@@ -73,11 +44,11 @@ export function SectionServices() {
     }, 4000); // 4秒ごとに切り替え
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, services.length]);
 
   // 各アイテムの位置とスケールを計算
-  const getItemTransform = (index: number) => {
-    const diff = index - currentIndex;
+  const getItemTransform = (index: number, activeIndex: number) => {
+    const diff = index - activeIndex;
     const isCurrent = diff === 0;
 
     if (isCurrent) {
@@ -113,7 +84,11 @@ export function SectionServices() {
     };
   };
 
-  const currentService = services[currentIndex];
+  if (services.length === 0) {
+    return null;
+  }
+
+  const safeIndex = Math.min(currentIndex, services.length - 1);
 
   return (
     <section
@@ -153,12 +128,13 @@ export function SectionServices() {
                     ATE9
                   </h2>
                 </div>
+                <p className="text-lg text-text-body">{content.intro}</p>
               </div>
 
               {/* テキストコンテンツ（フェードイン/アウト） */}
               <div className="relative min-h-[200px]">
                 {services.map((service, index) => {
-                  const isCurrent = index === currentIndex;
+                  const isCurrent = index === safeIndex;
                   return (
                     <motion.div
                       key={service.id}
@@ -193,7 +169,7 @@ export function SectionServices() {
             <div className="relative flex h-full min-h-[400px] items-center justify-center overflow-hidden p-8 lg:min-h-[500px]">
               <div className="relative h-[450px] w-full max-w-[500px]">
                 {services.map((service, index) => {
-                  const transform = getItemTransform(index);
+                  const transform = getItemTransform(index, safeIndex);
                   return (
                     <motion.div
                       key={service.id}
@@ -240,14 +216,7 @@ export function SectionServices() {
                               </span>
                             </div>
                             <div className="mt-4 grid flex-1 grid-cols-2 gap-3">
-                              {[
-                                service.imageUrl,
-                                "https://lh3.googleusercontent.com/aida-public/AB6AXuDcIgelrIJrVYREYU3mJWRQoN0k5l6xI69V-zUbhU7galVQISVb2SDTvYU8nddUD72cbh5f_i-dRfy91G86bKDr7y9dVprvu0bQ2CPvwLceE5A2fyqwwW6beLkV-oFzGbQ8J_tjR20nuiTnzIgVwXwNsOX4ZCm3C4P8JdrGYk4bt2b6k6MEkuypriTg9p5OIkrrhvEfoPNg29xOwm5lj0Xzma9TNQ4DUv4dh3Rblkkbqw9ehIWFi4FK_rbF0FAdOzwPF49VRTxirBw",
-                                "https://lh3.googleusercontent.com/aida-public/AB6AXuBFjoonk0jREp72pVriB1yhJ-iqPtPIXBEacYNDL_F53CHi3SCRhkpnvmVvJFxD13MNSqclmjWf5k7VYwFsGgksYFdWeys0iAmmYK2tMg9C_TSW-8LQIsajWn6HkLFOMpMEjQj1eWsJQxUONNoZNuCNKKK4hyviEZYd_nVNJKmXM29vbiL9AniUEyCbVeZthACstlgfT6vC9rWT2ZWLScl_hhqXHGGjT4ERw9MU5ISu43cQL4JA-tASQPDjNNHGXXKgwt3ovzGj94g",
-                                "https://lh3.googleusercontent.com/aida-public/AB6AXuBWKKb5kw2yetwFRWdhetRLJ-7VIJCe3l-vw-yJrMbpzPeAFKr3Ik_eZ1taKrWGuUHAz_p5GoWOM_Na_x8E3VcuQZ9qrqM6JWjknPpPvRP96Zve4ORuERmWiQ-rDuQ7lYP5dxk_iMTR31UHt4ykyk4OUhxPIJdR-2judYI-VcTwZZs1zFMzqfxgubJhsfkkuWLGJBuKPia_MeZx-qvklRYLU5X4gmTC9gnpB-4J-8YvoT4qjHx4PY3O9Ga4AWUmdAMTUinpBLU08B0",
-                                "https://lh3.googleusercontent.com/aida-public/AB6AXuCO8_KIs8EFWw_n33CJy5lU0M_oFB0FkPt6FXXuhPBck2xZiN3I2hCCmxZfwRNrKyv8jaOOjvMYVDsa7u-qwHgQP7X_HeJ87HjjB_hG31QTcAPnkRCZr41cMJy1rCXX4JpL4HMqyDISIgDydxXX-Ng27tfqV0X0Aapi491LkbUu7Qp__Lt5J4O5VpU1xpg5Gqrk-mhfJ73dwEWYjuoMvncz1hCA-Q87tTi2SEbJ4fOeDygB5agTD3YBhsQrqqwRZPHonWs2ZqTxSRA",
-                                "https://lh3.googleusercontent.com/aida-public/AB6AXuCE8Ve0YVmiswa622qUip7Ng2zUDhAq6Hiq9hpH8bD6dObkVMRRUDH0UAz7gCJhnqjyL6hZD1ao8wUizxfrzn1VJkgD5i7vFSRGz9_26k7VJ5EG9NGip_oCaoZmLY_YijJUwTnwXC872KO7opPfn0UvEQ7qJ-k7cjpeSIA1OmwMYvsOinsljUhwO5O1cQn5t49CX5f7RaHWCTlqIWGWFCpjUNZ2B3hnG_vWm7hhaHFJ4pPbEticjiiXBrK8h9WB3k6UkdACf4_cT64",
-                              ].map((src, idx) => (
+                              {service.gallery.map((src, idx) => (
                                 <div
                                   key={idx}
                                   className="rounded-lg bg-white/80 backdrop-blur-sm"
@@ -293,7 +262,7 @@ export function SectionServices() {
                       setTimeout(() => setIsAutoPlaying(true), 5000);
                     }}
                     className={`h-2 rounded-full transition-all ${
-                      index === currentIndex
+                      index === safeIndex
                         ? "w-8 bg-primary"
                         : "w-2 bg-gray-300"
                     }`}

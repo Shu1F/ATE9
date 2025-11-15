@@ -1,10 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import type { HeroContent } from "@/types/landing";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
-export function SectionHero() {
+type SectionHeroProps = {
+  content: HeroContent;
+};
+
+export function SectionHero({ content }: SectionHeroProps) {
   return (
     <section className="mx-auto max-w-6xl px-6 py-20 md:py-32">
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -15,15 +21,16 @@ export function SectionHero() {
           className="flex flex-col gap-6 text-center lg:text-left"
         >
           <h1 className="text-4xl font-bold leading-tight tracking-tighter text-text-headings dark:text-white md:text-6xl">
-            Elevating Experiences, One Design at a Time.
+            {content.heading}
           </h1>
           <p className="text-lg text-text-body dark:text-gray-300">
-            ATE9 crafts intuitive and impactful digital solutions that resonate
-            with users and drive business growth.
+            {content.subheading}
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-            <Button size="lg" className="w-full sm:w-auto">
-              <span className="truncate">Get Started</span>
+            <Button size="lg" className="w-full sm:w-auto" asChild>
+              <Link href={content.ctaLink}>
+                <span className="truncate">{content.ctaLabel}</span>
+              </Link>
             </Button>
           </div>
         </motion.div>
@@ -37,7 +44,7 @@ export function SectionHero() {
             <Image
               alt="Dynamic visual representing the core product/service"
               className="h-full w-full rounded-xl object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9_PjLsnpXE6JG3InGgvT0zkecIjXHHbHARZ4pGLohKmgakBLOaO2bAMz7cSBCigmE_ray8NK8h1SNYygQEfyoygiBYHvXgrFEjgf4CaC6VA6sftCs9jwuCNeTT2JbhXzFKXoKTPazbIFPWkaPqaN832w75O3YDRQF1dS827PiJ_wVFbVhKeL7cDgD3LVti6eVlc36STVf2oxaJiX5B5p_XdYdJ0uTbSbzPTAnlbfmw8Rid5e4q65qsjYXci5Pzq_ZMX8V4MGDtTE"
+              src={content.imageUrl}
               width={400}
               height={400}
               priority
