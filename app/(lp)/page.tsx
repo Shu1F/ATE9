@@ -1,4 +1,4 @@
-import { SectionContactForm } from "@/components/lp/SectionContactForm";
+import { SectionAbout } from "@/components/lp/SectionAbout";
 import { SectionHero } from "@/components/lp/SectionHero";
 import { SectionMission } from "@/components/lp/SectionMission";
 import { SectionPortfolio } from "@/components/lp/SectionPortfolio";
@@ -11,17 +11,17 @@ export default async function LPPage() {
   const content = await getLandingContent();
 
   return (
-    <>
+    <div className="relative flex min-h-screen w-full flex-col bg-ate9-bg text-white">
       <SiteHeader />
-      <main className="pt-20">
+      <main className="flex-grow">
         <SectionHero content={content.hero} />
-        <SectionMission />
+        <SectionAbout content={content.about} />
+        <SectionMission content={content.mission} />
         <SectionServices content={content.services} />
         <SectionPortfolio content={content.portfolio} />
-        <SectionContactForm />
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }
 

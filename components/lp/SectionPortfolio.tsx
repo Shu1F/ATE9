@@ -1,9 +1,9 @@
 "use client";
 
+import { fadeInUp, hoverScale, motionTransition, staggerContainer, viewportOnce } from "@/lib/motion/variants";
 import type { PortfolioContent } from "@/types/landing";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 
 type SectionPortfolioProps = {
   content: PortfolioContent;
@@ -15,70 +15,62 @@ export function SectionPortfolio({ content }: SectionPortfolioProps) {
   }
 
   return (
-    <section
-      className="bg-background-light dark:bg-background-dark"
-      id="portfolio"
-    >
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-        <motion.div
+    <section className="py-24 px-10" id="portfolio">
+      <div className="max-w-6xl mx-auto">
+        <motion.h2
+          className="text-center text-white text-4xl font-bold leading-tight tracking-[-0.015em] mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col items-center gap-4 text-center"
+          viewport={viewportOnce}
+          transition={motionTransition.default}
         >
-          <h2 className="text-3xl font-bold leading-tight tracking-tighter text-text-headings dark:text-white md:text-4xl">
-            {content.heading}
-          </h2>
-          <p className="max-w-2xl text-lg text-text-body dark:text-gray-300">
-            {content.subheading}
-          </p>
-        </motion.div>
-        <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
-          {content.items.map((item, idx) => (
+          {content.heading}
+        </motion.h2>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
+          {content.items.map((item) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group flex flex-col gap-4"
+              className="group relative overflow-hidden bg-ate9-gray"
+              variants={fadeInUp}
+              whileHover={hoverScale}
             >
-              <div className="overflow-hidden rounded-xl">
+              <motion.div
+                className="relative w-full h-full"
+                whileHover={{ y: -4 }}
+                transition={motionTransition.fast}
+              >
                 <Image
-                  className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  src={item.imageUrl}
                   alt={item.title}
-                  width={600}
-                  height={400}
+                  className="w-full h-full object-cover"
+                  src={item.imageUrl}
+                  width={400}
+                  height={300}
                 />
-              </div>
-              <div className="flex flex-col gap-1">
-                <h3 className="text-xl font-bold text-text-headings dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="text-text-body dark:text-gray-300">
-                  {item.description}
-                </p>
-                {item.linkUrl && (
-                  <Link
-                    href={item.linkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center text-sm font-medium text-primary hover:underline"
-                  >
-                    View site
-                    <span className="material-symbols-outlined ml-1 text-base">
-                      open_in_new
-                    </span>
-                  </Link>
-                )}
-              </div>
+                <div className="absolute inset-0 bg-black/50"></div>
+                <motion.div
+                  className="absolute bottom-0 left-0 p-6"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileHover={{ y: 0, opacity: 1 }}
+                  transition={motionTransition.fast}
+                >
+                  <h3 className="text-white text-2xl font-bold">{item.title}</h3>
+                </motion.div>
+                <motion.div
+                  className="absolute inset-0 border-2 border-transparent"
+                  whileHover={{ borderColor: "rgb(255, 3, 3)" }}
+                  transition={motionTransition.fast}
+                />
+              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
-
