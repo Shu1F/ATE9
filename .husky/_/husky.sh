@@ -1,12 +1,9 @@
+echo "husky - DEPRECATED
+
+Please remove the following two lines from $0:
+
 #!/usr/bin/env sh
+. \"\$(dirname -- \"\$0\")/_/husky.sh\"
 
-if [ -z "$husky_skip_init" ]; then
-  if [ "$HUSKY" = 0 ]; then
-    return
-  fi
-  export husky_skip_init=1
-  . "$0" "$@"
-  exit $?
-fi
-
-
+They WILL FAIL in v10.0.0
+"
