@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { ate9Colors } from "@/config/theme";
+import { generateRandomId } from "@/lib/utils";
 import type { ServiceItem, ServicesContent } from "@/types/landing";
 import { Edit, Plus, Trash2, X } from "lucide-react";
 import { useState } from "react";
@@ -47,11 +48,6 @@ const colorOptions = [
   { value: ate9Colors.gray, label: "ATE9 Gray (#3c3d37)" },
   { value: ate9Colors.white, label: "ATE9 White (#ffffff)" },
 ];
-
-const generateId = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
 
 export function ServicesSectionEditor({
   services,
@@ -76,7 +72,7 @@ export function ServicesSectionEditor({
     } else {
       setEditingItem(null);
       setFormData({
-        id: generateId(),
+        id: generateRandomId(),
         title: "",
         description: "",
         backgroundColor: ate9Colors.redBright,
@@ -132,8 +128,8 @@ export function ServicesSectionEditor({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-semibold">Services セクション</h2>
-        <p className="text-sm text-gray-500 mt-1">
+        <h2 className="text-2xl font-semibold text-white">Services セクション</h2>
+        <p className="text-sm text-white/70 mt-1">
           サービス紹介のテキストとカード一覧を編集します
         </p>
       </div>
@@ -148,14 +144,18 @@ export function ServicesSectionEditor({
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="intro">Intro Text</Label>
+            <Label htmlFor="intro" className="text-text-headings">
+              Intro Text
+            </Label>
             <Textarea
               id="intro"
               value={services.intro}
               onChange={(e) => onChange({ ...services, intro: e.target.value })}
               rows={3}
             />
-            <p className="text-xs text-gray-500">{services.intro.length} 文字</p>
+            <p className="text-xs text-text-body/70">
+              {services.intro.length} 文字
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -176,7 +176,7 @@ export function ServicesSectionEditor({
         </CardHeader>
         <CardContent>
           {services.items.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-8">
+            <p className="text-sm text-text-body text-center py-8">
               サービスが登録されていません。「Add Service」ボタンで追加してください。
             </p>
           ) : (
@@ -193,21 +193,27 @@ export function ServicesSectionEditor({
               <TableBody>
                 {services.items.map((item, index) => (
                     <TableRow key={item.id}>
-                      <TableCell className="font-medium">{item.title || "-"}</TableCell>
+                      <TableCell className="font-medium text-text-headings">
+                        {item.title || "-"}
+                      </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div
-                            className="w-6 h-6 rounded border"
+                            className="w-6 h-6 rounded border border-ate9-gray/40"
                             style={{ backgroundColor: item.backgroundColor }}
                           />
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-text-headings">
                             {item.backgroundColor}
                           </span>
                         </div>
                       </TableCell>
-                      <TableCell>{item.gallery.length} 枚</TableCell>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-text-body">
+                        {item.gallery.length} 枚
+                      </TableCell>
+                      <TableCell className="text-text-body">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell className="text-right text-text-body">
                         <div className="flex justify-end gap-2">
                           <Button
                             variant="ghost"
@@ -252,7 +258,12 @@ export function ServicesSectionEditor({
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="title">Title *</Label>
+              <Label
+                htmlFor="title"
+                className="text-text-headings"
+              >
+                Title *
+              </Label>
               <Input
                 id="title"
                 value={formData.title}
@@ -261,7 +272,12 @@ export function ServicesSectionEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label
+                htmlFor="description"
+                className="text-text-headings"
+              >
+                Description *
+              </Label>
               <Textarea
                 id="description"
                 value={formData.description}
@@ -273,7 +289,12 @@ export function ServicesSectionEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="backgroundColor">Background Color *</Label>
+              <Label
+                htmlFor="backgroundColor"
+                className="text-text-headings"
+              >
+                Background Color *
+              </Label>
               <Select
                 value={formData.backgroundColor}
                 onValueChange={(value) =>
@@ -326,7 +347,7 @@ export function ServicesSectionEditor({
                   </div>
                 ))}
                 {formData.gallery.length === 0 && (
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-text-body/70">
                     画像URLがありません。Add URL ボタンで追加してください。
                   </p>
                 )}

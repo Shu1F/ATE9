@@ -58,12 +58,12 @@ export function AdminShell({ initialContent }: AdminShellProps) {
     savingSection === section || (section !== null && isPending);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-ate9-bg text-white">
       {/* 左サイドバー */}
-      <div className="w-64 border-r bg-white dark:bg-gray-900">
-        <div className="p-6 border-b">
-          <h1 className="text-xl font-semibold">LP Admin</h1>
-          <p className="text-sm text-gray-500 mt-1">
+      <div className="w-64 border-r border-ate9-gray/60 bg-ate9-bg">
+        <div className="p-6 border-b border-ate9-gray/60">
+          <h1 className="text-xl font-semibold tracking-tight">LP Admin</h1>
+          <p className="text-sm text-white/60 mt-1">
             Landing Page 編集
           </p>
         </div>
@@ -74,8 +74,8 @@ export function AdminShell({ initialContent }: AdminShellProps) {
       </div>
 
       {/* 右コンテンツエリア */}
-      <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950">
-        <div className="p-8">
+      <div className="flex-1 overflow-y-auto bg-ate9-bg">
+        <div className="p-8 space-y-8">
           {activeSection === "hero" && (
             <HeroSectionEditor
               hero={content.hero}

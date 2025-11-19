@@ -21,6 +21,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import { generateRandomId } from "@/lib/utils";
 import type { PortfolioContent, PortfolioItem } from "@/types/landing";
 import { Edit, ExternalLink, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -32,11 +33,6 @@ type PortfolioSectionEditorProps = {
   onSave: () => void;
   isSaving: boolean;
 };
-
-const generateId = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2);
 
 export function PortfolioSectionEditor({
   portfolio,
@@ -61,7 +57,7 @@ export function PortfolioSectionEditor({
     } else {
       setEditingItem(null);
       setFormData({
-        id: generateId(),
+        id: generateRandomId(),
         title: "",
         description: "",
         imageUrl: "",
@@ -102,8 +98,8 @@ export function PortfolioSectionEditor({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-semibold">Portfolio セクション</h2>
-        <p className="text-sm text-gray-500 mt-1">
+        <h2 className="text-2xl font-semibold text-white">Portfolio セクション</h2>
+        <p className="text-sm text-white/70 mt-1">
           実績セクションの案件一覧を編集します
         </p>
       </div>
@@ -119,7 +115,9 @@ export function PortfolioSectionEditor({
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="heading">Heading</Label>
+              <Label htmlFor="heading" className="text-text-headings">
+                Heading
+              </Label>
               <Input
                 id="heading"
                 value={portfolio.heading}
@@ -130,7 +128,9 @@ export function PortfolioSectionEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="subheading">Subheading</Label>
+              <Label htmlFor="subheading" className="text-text-headings">
+                Subheading
+              </Label>
               <Input
                 id="subheading"
                 value={portfolio.subheading}
@@ -160,7 +160,7 @@ export function PortfolioSectionEditor({
         </CardHeader>
         <CardContent>
           {portfolio.items.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-8">
+            <p className="text-sm text-text-body text-center py-8">
               ポートフォリオが登録されていません。「Add Portfolio」ボタンで追加してください。
             </p>
           ) : (
@@ -188,15 +188,15 @@ export function PortfolioSectionEditor({
                           />
                         </div>
                       ) : (
-                        <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">
+                        <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-xs text-text-body/70">
                           No Image
                         </div>
                       )}
                     </TableCell>
-                    <TableCell className="font-medium">
+                    <TableCell className="font-medium text-text-headings">
                       {item.title || "-"}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="text-text-body">
                       {item.linkUrl ? (
                         <a
                           href={item.linkUrl}
@@ -208,11 +208,13 @@ export function PortfolioSectionEditor({
                           <span className="text-xs">Open</span>
                         </a>
                       ) : (
-                        <span className="text-xs text-gray-400">-</span>
+                        <span className="text-xs text-text-body">-</span>
                       )}
                     </TableCell>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-text-body">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell className="text-right text-text-body">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -257,7 +259,9 @@ export function PortfolioSectionEditor({
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title" className="text-text-headings">
+                Title *
+              </Label>
               <Input
                 id="title"
                 value={formData.title}
@@ -266,7 +270,9 @@ export function PortfolioSectionEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description" className="text-text-headings">
+                Description *
+              </Label>
               <Textarea
                 id="description"
                 value={formData.description}
@@ -278,7 +284,9 @@ export function PortfolioSectionEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="imageUrl">Image URL *</Label>
+              <Label htmlFor="imageUrl" className="text-text-headings">
+                Image URL *
+              </Label>
               <Input
                 id="imageUrl"
                 value={formData.imageUrl}
@@ -299,7 +307,9 @@ export function PortfolioSectionEditor({
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="linkUrl">Link URL (任意)</Label>
+              <Label htmlFor="linkUrl" className="text-text-headings">
+                Link URL (任意)
+              </Label>
               <Input
                 id="linkUrl"
                 value={formData.linkUrl || ""}

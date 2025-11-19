@@ -55,8 +55,8 @@ export function SectionTabs({ activeSection, onSectionChange }: SectionTabsProps
             className={cn(
               "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
               isActive
-                ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
-                : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                ? "bg-ate9-red text-white shadow-md"
+                : "text-white/70 hover:bg-white/5"
             )}
           >
             <Icon className="w-5 h-5" />
