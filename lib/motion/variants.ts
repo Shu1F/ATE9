@@ -152,7 +152,7 @@ export const viewportOnceTight = {
  */
 export const getReducedMotionTransition = (
   transition: typeof motionTransition.default,
-): typeof motionTransition.default => {
+): typeof motionTransition.default | { duration: number } => {
   if (
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
