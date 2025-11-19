@@ -1,15 +1,22 @@
-"use client";
+'use client';
 
-import { fadeInUp, hoverScale, motionTransition, staggerContainer, viewportOnce } from "@/lib/motion/variants";
-import type { PortfolioContent } from "@/types/landing";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import {
+  fadeInUp,
+  hoverScale,
+  motionTransition,
+  staggerContainer,
+  viewportOnce,
+} from '@/lib/motion/variants';
+import type { PortfolioContent } from '@/types/landing';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import type { JSX } from 'react';
 
 type SectionPortfolioProps = {
   content: PortfolioContent;
 };
 
-export function SectionPortfolio({ content }: SectionPortfolioProps) {
+export function SectionPortfolio({ content }: SectionPortfolioProps): JSX.Element | null {
   if (content.items.length === 0) {
     return null;
   }
@@ -51,11 +58,11 @@ export function SectionPortfolio({ content }: SectionPortfolioProps) {
                 variants={fadeInUp}
                 whileHover={hoverScale}
               >
-              <motion.div
-                className="relative w-full h-full"
-                transition={motionTransition.fast}
-                whileHover={{ y: -4 }}
-              >
+                <motion.div
+                  className="relative w-full h-full"
+                  transition={motionTransition.fast}
+                  whileHover={{ y: -4 }}
+                >
                   <Image
                     alt={item.title}
                     className="w-full h-full object-cover"
@@ -64,9 +71,9 @@ export function SectionPortfolio({ content }: SectionPortfolioProps) {
                     height={300}
                   />
                   {/* ベースのダークグラデーション */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent" />
                   {/* ホバー時にブランドレッドがふわっと乗るレイヤー */}
-                  <div className="absolute inset-0 opacity-0 bg-gradient-to-t from-ate9-red/40 via-transparent to-transparent mix-blend-screen transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-0 opacity-0 bg-linear-to-t from-ate9-red/40 via-transparent to-transparent mix-blend-screen transition-opacity duration-300 group-hover:opacity-100" />
                   <motion.div
                     className="absolute inset-0 flex flex-col justify-end p-6 gap-2"
                     initial={{ opacity: 0, y: 20 }}
@@ -78,9 +85,7 @@ export function SectionPortfolio({ content }: SectionPortfolioProps) {
                       {item.title}
                     </h3>
                     {item.description && (
-                      <p className="text-sm text-white/80 line-clamp-2">
-                        {item.description}
-                      </p>
+                      <p className="text-sm text-white/80 line-clamp-2">{item.description}</p>
                     )}
                     {item.linkUrl && (
                       <span className="mt-4 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">
@@ -93,7 +98,7 @@ export function SectionPortfolio({ content }: SectionPortfolioProps) {
                   </motion.div>
                   <motion.div
                     className="pointer-events-none absolute inset-0 rounded-xl border-2 border-transparent"
-                    whileHover={{ borderColor: "rgb(242, 66, 109)" }}
+                    whileHover={{ borderColor: 'rgb(242, 66, 109)' }}
                     transition={motionTransition.fast}
                   />
                 </motion.div>
@@ -114,8 +119,8 @@ export function SectionPortfolio({ content }: SectionPortfolioProps) {
               <a
                 key={item.id}
                 href={item.linkUrl}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
                 className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ate9-red focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 {card}

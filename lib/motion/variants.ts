@@ -1,11 +1,11 @@
 /**
  * ATE9 LP 共通アニメーションバリアント
- * 
+ *
  * Framer Motion の variants と transition を統一管理
  * 黒×赤ミニマルデザインに調和する控えめで存在感のあるアニメーション
  */
 
-import type { Variants } from "framer-motion";
+import type { Variants } from 'framer-motion';
 
 /**
  * 共通の transition 設定
@@ -138,22 +138,26 @@ export const hoverScaleSubtle = {
  */
 export const viewportOnce = {
   once: true,
-  margin: "-100px",
+  margin: '-100px',
 } as const;
 
 export const viewportOnceTight = {
   once: true,
-  margin: "-50px",
+  margin: '-50px',
 } as const;
 
 /**
  * prefers-reduced-motion を考慮した transition
  * ユーザーがアニメーションを減らす設定にしている場合は即座に完了
  */
-export const getReducedMotionTransition = (transition: typeof motionTransition.default) => {
-  if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+export const getReducedMotionTransition = (
+  transition: typeof motionTransition.default,
+): typeof motionTransition.default => {
+  if (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
     return { duration: 0 };
   }
   return transition;
 };
-

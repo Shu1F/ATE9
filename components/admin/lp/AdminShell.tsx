@@ -1,25 +1,26 @@
-"use client";
+'use client';
 
-import { saveLandingContent } from "@/services/cms/landing";
-import type { LandingContent } from "@/types/landing";
-import { useState, useTransition } from "react";
-import { toast } from "sonner";
-import { SectionTabs } from "./SectionTabs";
-import { AboutSectionEditor } from "./sections/AboutSectionEditor";
-import { HeroSectionEditor } from "./sections/HeroSectionEditor";
-import { MissionSectionEditor } from "./sections/MissionSectionEditor";
-import { PortfolioSectionEditor } from "./sections/PortfolioSectionEditor";
-import { ServicesSectionEditor } from "./sections/ServicesSectionEditor";
+import { saveLandingContent } from '@/services/cms/landing';
+import type { LandingContent } from '@/types/landing';
+import type { JSX } from 'react';
+import { useState, useTransition } from 'react';
+import { toast } from 'sonner';
+import { SectionTabs } from './SectionTabs';
+import { AboutSectionEditor } from './sections/AboutSectionEditor';
+import { HeroSectionEditor } from './sections/HeroSectionEditor';
+import { MissionSectionEditor } from './sections/MissionSectionEditor';
+import { PortfolioSectionEditor } from './sections/PortfolioSectionEditor';
+import { ServicesSectionEditor } from './sections/ServicesSectionEditor';
 
 type AdminShellProps = {
   initialContent: LandingContent;
 };
 
-type ActiveSection = "hero" | "about" | "mission" | "services" | "portfolio";
+type ActiveSection = 'hero' | 'about' | 'mission' | 'services' | 'portfolio';
 
-export function AdminShell({ initialContent }: AdminShellProps) {
+export function AdminShell({ initialContent }: AdminShellProps): JSX.Element {
   const [content, setContent] = useState(initialContent);
-  const [activeSection, setActiveSection] = useState<ActiveSection>("hero");
+  const [activeSection, setActiveSection] = useState<ActiveSection>('hero');
   const [savingSection, setSavingSection] = useState<ActiveSection | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -29,13 +30,12 @@ export function AdminShell({ initialContent }: AdminShellProps) {
       try {
         const saved = await saveLandingContent(content);
         setContent(saved);
-        toast.success("保存しました", {
+        toast.success('保存しました', {
           description: `${getSectionLabel(section)}の内容を保存しました`,
         });
       } catch (error) {
-        toast.error("保存に失敗しました", {
-          description:
-            error instanceof Error ? error.message : "不明なエラーが発生しました",
+        toast.error('保存に失敗しました', {
+          description: error instanceof Error ? error.message : '不明なエラーが発生しました',
         });
       } finally {
         setSavingSection(null);
@@ -45,11 +45,11 @@ export function AdminShell({ initialContent }: AdminShellProps) {
 
   const getSectionLabel = (section: ActiveSection): string => {
     const labels: Record<ActiveSection, string> = {
-      hero: "Hero",
-      about: "About",
-      mission: "Mission",
-      services: "Services",
-      portfolio: "Portfolio",
+      hero: 'Hero',
+      about: 'About',
+      mission: 'Mission',
+      services: 'Services',
+      portfolio: 'Portfolio',
     };
     return labels[section];
   };
@@ -63,61 +63,52 @@ export function AdminShell({ initialContent }: AdminShellProps) {
       <div className="w-64 border-r border-ate9-gray/60 bg-ate9-bg">
         <div className="p-6 border-b border-ate9-gray/60">
           <h1 className="text-xl font-semibold tracking-tight">LP Admin</h1>
-          <p className="text-sm text-white/60 mt-1">
-            Landing Page 編集
-          </p>
+          <p className="text-sm text-white/60 mt-1">Landing Page 編集</p>
         </div>
-        <SectionTabs
-          activeSection={activeSection}
-          onSectionChange={setActiveSection}
-        />
+        <SectionTabs activeSection={activeSection} onSectionChange={setActiveSection} />
       </div>
 
       {/* 右コンテンツエリア */}
       <div className="flex-1 overflow-y-auto bg-ate9-bg">
         <div className="p-8 space-y-8">
-          {activeSection === "hero" && (
+          {activeSection === 'hero' && (
             <HeroSectionEditor
               hero={content.hero}
               onChange={(hero) => setContent((prev) => ({ ...prev, hero }))}
-              onSave={() => handleSave("hero")}
-              isSaving={isSaving("hero")}
+              onSave={() => handleSave('hero')}
+              isSaving={isSaving('hero')}
             />
           )}
-          {activeSection === "about" && (
+          {activeSection === 'about' && (
             <AboutSectionEditor
               about={content.about}
               onChange={(about) => setContent((prev) => ({ ...prev, about }))}
-              onSave={() => handleSave("about")}
-              isSaving={isSaving("about")}
+              onSave={() => handleSave('about')}
+              isSaving={isSaving('about')}
             />
           )}
-          {activeSection === "mission" && (
+          {activeSection === 'mission' && (
             <MissionSectionEditor
               mission={content.mission}
               onChange={(mission) => setContent((prev) => ({ ...prev, mission }))}
-              onSave={() => handleSave("mission")}
-              isSaving={isSaving("mission")}
+              onSave={() => handleSave('mission')}
+              isSaving={isSaving('mission')}
             />
           )}
-          {activeSection === "services" && (
+          {activeSection === 'services' && (
             <ServicesSectionEditor
               services={content.services}
-              onChange={(services) =>
-                setContent((prev) => ({ ...prev, services }))
-              }
-              onSave={() => handleSave("services")}
-              isSaving={isSaving("services")}
+              onChange={(services) => setContent((prev) => ({ ...prev, services }))}
+              onSave={() => handleSave('services')}
+              isSaving={isSaving('services')}
             />
           )}
-          {activeSection === "portfolio" && (
+          {activeSection === 'portfolio' && (
             <PortfolioSectionEditor
               portfolio={content.portfolio}
-              onChange={(portfolio) =>
-                setContent((prev) => ({ ...prev, portfolio }))
-              }
-              onSave={() => handleSave("portfolio")}
-              isSaving={isSaving("portfolio")}
+              onChange={(portfolio) => setContent((prev) => ({ ...prev, portfolio }))}
+              onSave={() => handleSave('portfolio')}
+              isSaving={isSaving('portfolio')}
             />
           )}
         </div>
@@ -125,4 +116,3 @@ export function AdminShell({ initialContent }: AdminShellProps) {
     </div>
   );
 }
-

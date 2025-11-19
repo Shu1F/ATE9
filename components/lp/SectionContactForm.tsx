@@ -1,17 +1,18 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { fadeInUp, motionTransition, viewportOnce } from "@/lib/motion/variants";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { fadeInUp, motionTransition, viewportOnce } from '@/lib/motion/variants';
+import { motion } from 'framer-motion';
+import type { JSX } from 'react';
+import { useState } from 'react';
 
-export function SectionContactForm() {
+export function SectionContactForm(): JSX.Element {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+    name: '',
+    email: '',
+    message: '',
   });
 
   const [errors, setErrors] = useState({
@@ -37,13 +38,10 @@ export function SectionContactForm() {
       return;
     }
 
-    // TODO: フォーム送信処理を実装
-    console.log("Form submitted:", formData);
+    // TODO: フォーム送信処理を実装（API 等に接続する際に置き換え）
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: false }));
@@ -73,10 +71,7 @@ export function SectionContactForm() {
           >
             Get in Touch
           </motion.h2>
-          <motion.p
-            className="max-w-2xl text-sm md:text-base text-white/70"
-            variants={fadeInUp}
-          >
+          <motion.p className="max-w-2xl text-sm md:text-base text-white/70" variants={fadeInUp}>
             Have a project in mind? We&apos;d love to hear from you. Send us a message and
             we&apos;ll respond as soon as possible.
           </motion.p>
@@ -109,8 +104,8 @@ export function SectionContactForm() {
                 required
                 className={`bg-transparent text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ate9-red ${
                   errors.name
-                    ? "border-ate9-red/80 shadow-[0_0_0_1px_rgba(242,66,109,0.45)]"
-                    : "border-ate9-gray/60"
+                    ? 'border-ate9-red/80 shadow-[0_0_0_1px_rgba(242,66,109,0.45)]'
+                    : 'border-ate9-gray/60'
                 }`}
               />
             </div>
@@ -131,8 +126,8 @@ export function SectionContactForm() {
                 required
                 className={`bg-transparent text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ate9-red ${
                   errors.email
-                    ? "border-ate9-red/80 shadow-[0_0_0_1px_rgba(242,66,109,0.45)]"
-                    : "border-ate9-gray/60"
+                    ? 'border-ate9-red/80 shadow-[0_0_0_1px_rgba(242,66,109,0.45)]'
+                    : 'border-ate9-gray/60'
                 }`}
               />
             </div>
@@ -154,8 +149,8 @@ export function SectionContactForm() {
               rows={6}
               className={`bg-transparent text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ate9-red ${
                 errors.message
-                  ? "border-ate9-red/80 shadow-[0_0_0_1px_rgba(242,66,109,0.45)]"
-                  : "border-ate9-gray/60"
+                  ? 'border-ate9-red/80 shadow-[0_0_0_1px_rgba(242,66,109,0.45)]'
+                  : 'border-ate9-gray/60'
               }`}
             />
           </div>
@@ -173,4 +168,3 @@ export function SectionContactForm() {
     </section>
   );
 }
-

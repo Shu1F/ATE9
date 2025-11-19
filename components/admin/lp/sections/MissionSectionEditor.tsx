@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import type { MissionContent } from "@/types/landing";
-import { CharacterCountTextarea } from "../CharacterCountTextarea";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import type { MissionContent } from '@/types/landing';
+import type { JSX } from 'react';
+import { CharacterCountTextarea } from '../CharacterCountTextarea';
 
 type MissionSectionEditorProps = {
   mission: MissionContent;
@@ -17,14 +18,12 @@ export function MissionSectionEditor({
   onChange,
   onSave,
   isSaving,
-}: MissionSectionEditorProps) {
+}: MissionSectionEditorProps): JSX.Element {
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-semibold text-white">Mission セクション</h2>
-        <p className="text-sm text-white/70 mt-1">
-          Mission セクションの見出しと説明文を編集します
-        </p>
+        <p className="text-sm text-white/70 mt-1">Mission セクションの見出しと説明文を編集します</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -32,9 +31,7 @@ export function MissionSectionEditor({
         <Card>
           <CardHeader>
             <CardTitle>編集</CardTitle>
-            <CardDescription>
-              LP の Mission セクションに表示される内容を編集します
-            </CardDescription>
+            <CardDescription>LP の Mission セクションに表示される内容を編集します</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <CharacterCountTextarea
@@ -59,8 +56,7 @@ export function MissionSectionEditor({
               id="description"
               label={
                 <>
-                  Description{" "}
-                  <span className="text-text-body/70">(説明文)</span>
+                  Description <span className="text-text-body/70">(説明文)</span>
                 </>
               }
               value={mission.description}
@@ -76,7 +72,7 @@ export function MissionSectionEditor({
 
             <div className="flex justify-end pt-4">
               <Button onClick={onSave} disabled={isSaving}>
-                {isSaving ? "保存中..." : "保存"}
+                {isSaving ? '保存中...' : '保存'}
               </Button>
             </div>
           </CardContent>
@@ -86,16 +82,12 @@ export function MissionSectionEditor({
         <Card>
           <CardHeader>
             <CardTitle>プレビュー</CardTitle>
-            <CardDescription>
-              編集内容のプレビュー（簡易表示）
-            </CardDescription>
+            <CardDescription>編集内容のプレビュー（簡易表示）</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="bg-black text-white p-8 rounded-lg space-y-4 min-h-[300px] text-center flex flex-col justify-center">
-              <h2 className="text-2xl font-bold">{mission.heading || "見出し"}</h2>
-              <p className="text-white/80 leading-relaxed">
-                {mission.description || "説明文"}
-              </p>
+              <h2 className="text-2xl font-bold">{mission.heading || '見出し'}</h2>
+              <p className="text-white/80 leading-relaxed">{mission.description || '説明文'}</p>
               <div className="w-24 h-0.5 bg-red-600 mx-auto mt-4"></div>
             </div>
           </CardContent>
@@ -104,4 +96,3 @@ export function MissionSectionEditor({
     </div>
   );
 }
-

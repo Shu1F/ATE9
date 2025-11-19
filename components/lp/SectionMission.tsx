@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { drawLine, fadeInUp, motionTransition, viewportOnce } from "@/lib/motion/variants";
-import type { MissionContent } from "@/types/landing";
-import { motion } from "framer-motion";
+import { drawLine, fadeInUp, motionTransition, viewportOnce } from '@/lib/motion/variants';
+import type { MissionContent } from '@/types/landing';
+import { motion } from 'framer-motion';
+import type { JSX } from 'react';
 
 type SectionMissionProps = {
   content: MissionContent;
 };
 
-export function SectionMission({ content }: SectionMissionProps) {
+export function SectionMission({ content }: SectionMissionProps): JSX.Element {
   return (
     <section className="py-24 px-10 text-center" id="mission">
       <motion.div
@@ -30,16 +31,16 @@ export function SectionMission({ content }: SectionMissionProps) {
           variants={{
             hidden: {
               opacity: 0,
-              letterSpacing: "-0.05em",
+              letterSpacing: '-0.05em',
             },
             visible: {
               opacity: 1,
-              letterSpacing: "-0.015em",
+              letterSpacing: '-0.015em',
               transition: {
                 ...motionTransition.default,
                 letterSpacing: {
                   duration: 0.8,
-                  ease: "easeOut",
+                  ease: 'easeOut',
                 },
               },
             },
@@ -53,10 +54,7 @@ export function SectionMission({ content }: SectionMissionProps) {
         >
           {content.description}
         </motion.p>
-        <motion.div
-          className="w-24 h-0.5 bg-ate9-red mt-4"
-          variants={drawLine}
-        />
+        <motion.div className="w-24 h-0.5 bg-ate9-red mt-4" variants={drawLine} />
       </motion.div>
     </section>
   );

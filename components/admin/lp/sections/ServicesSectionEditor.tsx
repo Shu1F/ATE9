@@ -1,38 +1,39 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
-import { ate9Colors } from "@/config/theme";
-import { generateRandomId } from "@/lib/utils";
-import type { ServiceItem, ServicesContent } from "@/types/landing";
-import { Edit, Plus, Trash2, X } from "lucide-react";
-import { useState } from "react";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Textarea } from '@/components/ui/textarea';
+import { ate9Colors } from '@/config/theme';
+import { generateRandomId } from '@/lib/utils';
+import type { ServiceItem, ServicesContent } from '@/types/landing';
+import { Edit, Plus, Trash2, X } from 'lucide-react';
+import type { JSX } from 'react';
+import { useState } from 'react';
 
 type ServicesSectionEditorProps = {
   services: ServicesContent;
@@ -42,11 +43,11 @@ type ServicesSectionEditorProps = {
 };
 
 const colorOptions = [
-  { value: ate9Colors.bg, label: "ATE9 Background (#000000)" },
-  { value: ate9Colors.redDark, label: "ATE9 Deep Red (#8e1616)" },
-  { value: ate9Colors.redBright, label: "ATE9 Bright Red (#ff0303)" },
-  { value: ate9Colors.gray, label: "ATE9 Gray (#3c3d37)" },
-  { value: ate9Colors.white, label: "ATE9 White (#ffffff)" },
+  { value: ate9Colors.bg, label: 'ATE9 Background (#000000)' },
+  { value: ate9Colors.redDark, label: 'ATE9 Deep Red (#8e1616)' },
+  { value: ate9Colors.redBright, label: 'ATE9 Bright Red (#ff0303)' },
+  { value: ate9Colors.gray, label: 'ATE9 Gray (#3c3d37)' },
+  { value: ate9Colors.white, label: 'ATE9 White (#ffffff)' },
 ];
 
 export function ServicesSectionEditor({
@@ -54,13 +55,13 @@ export function ServicesSectionEditor({
   onChange,
   onSave,
   isSaving,
-}: ServicesSectionEditorProps) {
+}: ServicesSectionEditorProps): JSX.Element {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ServiceItem | null>(null);
   const [formData, setFormData] = useState<ServiceItem>({
-    id: "",
-    title: "",
-    description: "",
+    id: '',
+    title: '',
+    description: '',
     backgroundColor: ate9Colors.redBright,
     gallery: [],
   });
@@ -73,8 +74,8 @@ export function ServicesSectionEditor({
       setEditingItem(null);
       setFormData({
         id: generateRandomId(),
-        title: "",
-        description: "",
+        title: '',
+        description: '',
         backgroundColor: ate9Colors.redBright,
         gallery: [],
       });
@@ -91,7 +92,7 @@ export function ServicesSectionEditor({
     if (editingItem) {
       // 編集
       const updatedItems = services.items.map((item) =>
-        item.id === editingItem.id ? formData : item
+        item.id === editingItem.id ? formData : item,
       );
       onChange({ ...services, items: updatedItems });
     } else {
@@ -102,7 +103,7 @@ export function ServicesSectionEditor({
   };
 
   const handleDeleteItem = (id: string) => {
-    if (confirm("このサービスを削除しますか？")) {
+    if (confirm('このサービスを削除しますか？')) {
       onChange({
         ...services,
         items: services.items.filter((item) => item.id !== id),
@@ -111,7 +112,7 @@ export function ServicesSectionEditor({
   };
 
   const handleAddGalleryUrl = () => {
-    setFormData({ ...formData, gallery: [...formData.gallery, ""] });
+    setFormData({ ...formData, gallery: [...formData.gallery, ''] });
   };
 
   const handleUpdateGalleryUrl = (index: number, value: string) => {
@@ -129,18 +130,14 @@ export function ServicesSectionEditor({
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-semibold text-white">Services セクション</h2>
-        <p className="text-sm text-white/70 mt-1">
-          サービス紹介のテキストとカード一覧を編集します
-        </p>
+        <p className="text-sm text-white/70 mt-1">サービス紹介のテキストとカード一覧を編集します</p>
       </div>
 
       {/* イントロ編集 */}
       <Card>
         <CardHeader>
           <CardTitle>イントロテキスト</CardTitle>
-          <CardDescription>
-            Services セクションの上部に表示される説明文を編集します
-          </CardDescription>
+          <CardDescription>Services セクションの上部に表示される説明文を編集します</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -153,9 +150,7 @@ export function ServicesSectionEditor({
               onChange={(e) => onChange({ ...services, intro: e.target.value })}
               rows={3}
             />
-            <p className="text-xs text-text-body/70">
-              {services.intro.length} 文字
-            </p>
+            <p className="text-xs text-text-body/70">{services.intro.length} 文字</p>
           </div>
         </CardContent>
       </Card>
@@ -165,9 +160,7 @@ export function ServicesSectionEditor({
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle>サービス一覧</CardTitle>
-            <CardDescription>
-              サービスカードの一覧を管理します
-            </CardDescription>
+            <CardDescription>サービスカードの一覧を管理します</CardDescription>
           </div>
           <Button onClick={() => handleOpenDialog()}>
             <Plus className="w-4 h-4 mr-2" />
@@ -192,47 +185,33 @@ export function ServicesSectionEditor({
               </TableHeader>
               <TableBody>
                 {services.items.map((item, index) => (
-                    <TableRow key={item.id}>
-                      <TableCell className="font-medium text-text-headings">
-                        {item.title || "-"}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-6 h-6 rounded border border-ate9-gray/40"
-                            style={{ backgroundColor: item.backgroundColor }}
-                          />
-                          <span className="text-xs text-text-headings">
-                            {item.backgroundColor}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-text-body">
-                        {item.gallery.length} 枚
-                      </TableCell>
-                      <TableCell className="text-text-body">
-                        {index + 1}
-                      </TableCell>
-                      <TableCell className="text-right text-text-body">
-                        <div className="flex justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleOpenDialog(item)}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteItem(item.id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  <TableRow key={item.id}>
+                    <TableCell className="font-medium text-text-headings">
+                      {item.title || '-'}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-6 h-6 rounded border border-ate9-gray/40"
+                          style={{ backgroundColor: item.backgroundColor }}
+                        />
+                        <span className="text-xs text-text-headings">{item.backgroundColor}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-text-body">{item.gallery.length} 枚</TableCell>
+                    <TableCell className="text-text-body">{index + 1}</TableCell>
+                    <TableCell className="text-right text-text-body">
+                      <div className="flex justify-end gap-2">
+                        <Button variant="ghost" size="sm" onClick={() => handleOpenDialog(item)}>
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => handleDeleteItem(item.id)}>
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           )}
@@ -241,7 +220,7 @@ export function ServicesSectionEditor({
 
       <div className="flex justify-end">
         <Button onClick={onSave} disabled={isSaving} size="lg">
-          {isSaving ? "保存中..." : "すべて保存"}
+          {isSaving ? '保存中...' : 'すべて保存'}
         </Button>
       </div>
 
@@ -249,19 +228,12 @@ export function ServicesSectionEditor({
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>
-              {editingItem ? "サービスを編集" : "新しいサービスを追加"}
-            </DialogTitle>
-            <DialogDescription>
-              サービスカードの情報を入力してください
-            </DialogDescription>
+            <DialogTitle>{editingItem ? 'サービスを編集' : '新しいサービスを追加'}</DialogTitle>
+            <DialogDescription>サービスカードの情報を入力してください</DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label
-                htmlFor="title"
-                className="text-text-headings"
-              >
+              <Label htmlFor="title" className="text-text-headings">
                 Title *
               </Label>
               <Input
@@ -272,34 +244,24 @@ export function ServicesSectionEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label
-                htmlFor="description"
-                className="text-text-headings"
-              >
+              <Label htmlFor="description" className="text-text-headings">
                 Description *
               </Label>
               <Textarea
                 id="description"
                 value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={4}
                 placeholder="サービスの説明..."
               />
             </div>
             <div className="space-y-2">
-              <Label
-                htmlFor="backgroundColor"
-                className="text-text-headings"
-              >
+              <Label htmlFor="backgroundColor" className="text-text-headings">
                 Background Color *
               </Label>
               <Select
                 value={formData.backgroundColor}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, backgroundColor: value })
-                }
+                onValueChange={(value) => setFormData({ ...formData, backgroundColor: value })}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -316,12 +278,7 @@ export function ServicesSectionEditor({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label>Gallery Images (URLs)</Label>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={handleAddGalleryUrl}
-                >
+                <Button type="button" variant="outline" size="sm" onClick={handleAddGalleryUrl}>
                   <Plus className="w-4 h-4 mr-2" />
                   Add URL
                 </Button>
@@ -331,9 +288,7 @@ export function ServicesSectionEditor({
                   <div key={index} className="flex gap-2">
                     <Input
                       value={url}
-                      onChange={(e) =>
-                        handleUpdateGalleryUrl(index, e.target.value)
-                      }
+                      onChange={(e) => handleUpdateGalleryUrl(index, e.target.value)}
                       placeholder="https://..."
                     />
                     <Button
@@ -365,4 +320,3 @@ export function ServicesSectionEditor({
     </div>
   );
 }
-

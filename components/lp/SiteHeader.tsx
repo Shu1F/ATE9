@@ -1,17 +1,18 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import type { JSX, MouseEvent } from 'react';
 
-export function SiteHeader() {
+export function SiteHeader(): JSX.Element {
   const handleSmoothScroll = (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>,
-    targetId: string
+    event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    targetId: string,
   ) => {
     event.preventDefault();
     const element = document.querySelector(targetId);
     if (element instanceof HTMLElement) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -20,23 +21,18 @@ export function SiteHeader() {
       <div className="flex items-center gap-4">
         <div className="size-5 text-ate9-red">
           <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6 6H42L36 24L42 42H6L12 24L6 6Z"
-              fill="currentColor"
-            />
+            <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor" />
           </svg>
         </div>
-        <h2 className="text-white text-xl font-bold leading-tight tracking-[-0.015em]">
-          ATE9
-        </h2>
+        <h2 className="text-white text-xl font-bold leading-tight tracking-[-0.015em]">ATE9</h2>
       </div>
       <nav className="flex flex-1 items-center justify-end gap-8">
         {[
-          { label: "About", href: "#about" },
-          { label: "Philosophy", href: "#brand-philosophy" },
-          { label: "Mission", href: "#mission" },
-          { label: "Services", href: "#services" },
-          { label: "Portfolio", href: "#portfolio" },
+          { label: 'About', href: '#about' },
+          { label: 'Philosophy', href: '#brand-philosophy' },
+          { label: 'Mission', href: '#mission' },
+          { label: 'Services', href: '#services' },
+          { label: 'Portfolio', href: '#portfolio' },
         ].map((item) => (
           <div key={item.label}>
             <Link
@@ -52,7 +48,7 @@ export function SiteHeader() {
         <div>
           <Button
             className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-9 px-4 bg-ate9-red text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors hover:bg-ate9-red-dark"
-            onClick={(event) => handleSmoothScroll(event, "#contact")}
+            onClick={(event) => handleSmoothScroll(event, '#contact')}
           >
             <span className="truncate">Contact</span>
           </Button>

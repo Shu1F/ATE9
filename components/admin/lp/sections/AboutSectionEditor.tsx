@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import type { AboutContent } from "@/types/landing";
-import { CharacterCountTextarea } from "../CharacterCountTextarea";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import type { AboutContent } from '@/types/landing';
+import type { JSX } from 'react';
+import { CharacterCountTextarea } from '../CharacterCountTextarea';
 
 type AboutSectionEditorProps = {
   about: AboutContent;
@@ -17,14 +18,12 @@ export function AboutSectionEditor({
   onChange,
   onSave,
   isSaving,
-}: AboutSectionEditorProps) {
+}: AboutSectionEditorProps): JSX.Element {
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-semibold text-white">About セクション</h2>
-        <p className="text-sm text-white/70 mt-1">
-          About セクションの見出しと説明文を編集します
-        </p>
+        <p className="text-sm text-white/70 mt-1">About セクションの見出しと説明文を編集します</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -32,9 +31,7 @@ export function AboutSectionEditor({
         <Card>
           <CardHeader>
             <CardTitle>編集</CardTitle>
-            <CardDescription>
-              LP の About セクションに表示される内容を編集します
-            </CardDescription>
+            <CardDescription>LP の About セクションに表示される内容を編集します</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <CharacterCountTextarea
@@ -59,8 +56,7 @@ export function AboutSectionEditor({
               id="description"
               label={
                 <>
-                  Description{" "}
-                  <span className="text-text-body/70">(説明文)</span>
+                  Description <span className="text-text-body/70">(説明文)</span>
                 </>
               }
               value={about.description}
@@ -76,7 +72,7 @@ export function AboutSectionEditor({
 
             <div className="flex justify-end pt-4">
               <Button onClick={onSave} disabled={isSaving}>
-                {isSaving ? "保存中..." : "保存"}
+                {isSaving ? '保存中...' : '保存'}
               </Button>
             </div>
           </CardContent>
@@ -86,17 +82,13 @@ export function AboutSectionEditor({
         <Card>
           <CardHeader>
             <CardTitle>プレビュー</CardTitle>
-            <CardDescription>
-              編集内容のプレビュー（簡易表示）
-            </CardDescription>
+            <CardDescription>編集内容のプレビュー（簡易表示）</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="bg-black text-white p-8 rounded-lg space-y-4 min-h-[300px]">
-              <h2 className="text-2xl font-bold">{about.heading || "見出し"}</h2>
+              <h2 className="text-2xl font-bold">{about.heading || '見出し'}</h2>
               <div className="w-16 h-0.5 bg-red-600"></div>
-              <p className="text-white/80 leading-relaxed">
-                {about.description || "説明文"}
-              </p>
+              <p className="text-white/80 leading-relaxed">{about.description || '説明文'}</p>
             </div>
           </CardContent>
         </Card>
@@ -104,4 +96,3 @@ export function AboutSectionEditor({
     </div>
   );
 }
-

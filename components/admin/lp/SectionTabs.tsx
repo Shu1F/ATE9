@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { Briefcase, FolderOpen, Info, LayoutDashboard, Target } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { Briefcase, FolderOpen, Info, LayoutDashboard, Target } from 'lucide-react';
+import type { JSX } from 'react';
 
-type ActiveSection = "hero" | "about" | "mission" | "services" | "portfolio";
+type ActiveSection = 'hero' | 'about' | 'mission' | 'services' | 'portfolio';
 
 type SectionTabsProps = {
   activeSection: ActiveSection;
@@ -16,33 +17,33 @@ const sections: {
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   {
-    id: "hero",
-    label: "Hero",
+    id: 'hero',
+    label: 'Hero',
     icon: LayoutDashboard,
   },
   {
-    id: "about",
-    label: "About",
+    id: 'about',
+    label: 'About',
     icon: Info,
   },
   {
-    id: "mission",
-    label: "Mission",
+    id: 'mission',
+    label: 'Mission',
     icon: Target,
   },
   {
-    id: "services",
-    label: "Services",
+    id: 'services',
+    label: 'Services',
     icon: Briefcase,
   },
   {
-    id: "portfolio",
-    label: "Portfolio",
+    id: 'portfolio',
+    label: 'Portfolio',
     icon: FolderOpen,
   },
 ];
 
-export function SectionTabs({ activeSection, onSectionChange }: SectionTabsProps) {
+export function SectionTabs({ activeSection, onSectionChange }: SectionTabsProps): JSX.Element {
   return (
     <nav className="p-4 space-y-1">
       {sections.map((section) => {
@@ -53,10 +54,8 @@ export function SectionTabs({ activeSection, onSectionChange }: SectionTabsProps
             key={section.id}
             onClick={() => onSectionChange(section.id)}
             className={cn(
-              "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-              isActive
-                ? "bg-ate9-red text-white shadow-md"
-                : "text-white/70 hover:bg-white/5"
+              'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+              isActive ? 'bg-ate9-red text-white shadow-md' : 'text-white/70 hover:bg-white/5',
             )}
           >
             <Icon className="w-5 h-5" />
@@ -67,4 +66,3 @@ export function SectionTabs({ activeSection, onSectionChange }: SectionTabsProps
     </nav>
   );
 }
-

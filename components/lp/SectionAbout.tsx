@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { drawLine, fadeInUp, motionTransition, viewportOnce } from "@/lib/motion/variants";
-import type { AboutContent } from "@/types/landing";
-import { motion } from "framer-motion";
+import { drawLine, fadeInUp, motionTransition, viewportOnce } from '@/lib/motion/variants';
+import type { AboutContent } from '@/types/landing';
+import { motion } from 'framer-motion';
+import type { JSX } from 'react';
 
 type SectionAboutProps = {
   content: AboutContent;
 };
 
-export function SectionAbout({ content }: SectionAboutProps) {
+export function SectionAbout({ content }: SectionAboutProps): JSX.Element {
   return (
     <section className="py-24 px-10" id="about">
       <motion.div
@@ -29,18 +30,12 @@ export function SectionAbout({ content }: SectionAboutProps) {
           <h2 className="text-white text-4xl font-bold leading-tight tracking-[-0.015em]">
             {content.heading}
           </h2>
-          <motion.div
-            className="w-16 h-0.5 bg-ate9-red my-2"
-            variants={drawLine}
-          />
+          <motion.div className="w-16 h-0.5 bg-ate9-red my-2" variants={drawLine} />
           <p className="text-white/80 text-base font-normal leading-relaxed">
             {content.description}
           </p>
         </motion.div>
-        <motion.div
-          className="flex justify-center items-center"
-          variants={fadeInUp}
-        >
+        <motion.div className="flex justify-center items-center" variants={fadeInUp}>
           <div className="relative w-64 h-64">
             <motion.div
               className="absolute inset-0 border-2 border-ate9-red-dark transform rotate-45"

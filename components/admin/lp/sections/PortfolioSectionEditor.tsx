@@ -1,31 +1,32 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
-import { generateRandomId } from "@/lib/utils";
-import type { PortfolioContent, PortfolioItem } from "@/types/landing";
-import { Edit, ExternalLink, Plus, Trash2 } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Textarea } from '@/components/ui/textarea';
+import { generateRandomId } from '@/lib/utils';
+import type { PortfolioContent, PortfolioItem } from '@/types/landing';
+import { Edit, ExternalLink, Plus, Trash2 } from 'lucide-react';
+import Image from 'next/image';
+import type { JSX } from 'react';
+import { useState } from 'react';
 
 type PortfolioSectionEditorProps = {
   portfolio: PortfolioContent;
@@ -39,15 +40,15 @@ export function PortfolioSectionEditor({
   onChange,
   onSave,
   isSaving,
-}: PortfolioSectionEditorProps) {
+}: PortfolioSectionEditorProps): JSX.Element {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<PortfolioItem | null>(null);
   const [formData, setFormData] = useState<PortfolioItem>({
-    id: "",
-    title: "",
-    description: "",
-    imageUrl: "",
-    linkUrl: "",
+    id: '',
+    title: '',
+    description: '',
+    imageUrl: '',
+    linkUrl: '',
   });
 
   const handleOpenDialog = (item?: PortfolioItem) => {
@@ -58,10 +59,10 @@ export function PortfolioSectionEditor({
       setEditingItem(null);
       setFormData({
         id: generateRandomId(),
-        title: "",
-        description: "",
-        imageUrl: "",
-        linkUrl: "",
+        title: '',
+        description: '',
+        imageUrl: '',
+        linkUrl: '',
       });
     }
     setIsDialogOpen(true);
@@ -76,7 +77,7 @@ export function PortfolioSectionEditor({
     if (editingItem) {
       // 編集
       const updatedItems = portfolio.items.map((item) =>
-        item.id === editingItem.id ? formData : item
+        item.id === editingItem.id ? formData : item,
       );
       onChange({ ...portfolio, items: updatedItems });
     } else {
@@ -87,7 +88,7 @@ export function PortfolioSectionEditor({
   };
 
   const handleDeleteItem = (id: string) => {
-    if (confirm("このポートフォリオを削除しますか？")) {
+    if (confirm('このポートフォリオを削除しますか？')) {
       onChange({
         ...portfolio,
         items: portfolio.items.filter((item) => item.id !== id),
@@ -99,18 +100,14 @@ export function PortfolioSectionEditor({
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-semibold text-white">Portfolio セクション</h2>
-        <p className="text-sm text-white/70 mt-1">
-          実績セクションの案件一覧を編集します
-        </p>
+        <p className="text-sm text-white/70 mt-1">実績セクションの案件一覧を編集します</p>
       </div>
 
       {/* セクション見出し編集 */}
       <Card>
         <CardHeader>
           <CardTitle>セクション見出し</CardTitle>
-          <CardDescription>
-            Portfolio セクションの見出しとサブコピーを編集します
-          </CardDescription>
+          <CardDescription>Portfolio セクションの見出しとサブコピーを編集します</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -121,9 +118,7 @@ export function PortfolioSectionEditor({
               <Input
                 id="heading"
                 value={portfolio.heading}
-                onChange={(e) =>
-                  onChange({ ...portfolio, heading: e.target.value })
-                }
+                onChange={(e) => onChange({ ...portfolio, heading: e.target.value })}
                 placeholder="Portfolio"
               />
             </div>
@@ -134,9 +129,7 @@ export function PortfolioSectionEditor({
               <Input
                 id="subheading"
                 value={portfolio.subheading}
-                onChange={(e) =>
-                  onChange({ ...portfolio, subheading: e.target.value })
-                }
+                onChange={(e) => onChange({ ...portfolio, subheading: e.target.value })}
                 placeholder="実績一覧"
               />
             </div>
@@ -149,9 +142,7 @@ export function PortfolioSectionEditor({
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle>ポートフォリオ一覧</CardTitle>
-            <CardDescription>
-              ポートフォリオカードの一覧を管理します
-            </CardDescription>
+            <CardDescription>ポートフォリオカードの一覧を管理します</CardDescription>
           </div>
           <Button onClick={() => handleOpenDialog()}>
             <Plus className="w-4 h-4 mr-2" />
@@ -194,7 +185,7 @@ export function PortfolioSectionEditor({
                       )}
                     </TableCell>
                     <TableCell className="font-medium text-text-headings">
-                      {item.title || "-"}
+                      {item.title || '-'}
                     </TableCell>
                     <TableCell className="text-text-body">
                       {item.linkUrl ? (
@@ -211,23 +202,13 @@ export function PortfolioSectionEditor({
                         <span className="text-xs text-text-body">-</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-text-body">
-                      {index + 1}
-                    </TableCell>
+                    <TableCell className="text-text-body">{index + 1}</TableCell>
                     <TableCell className="text-right text-text-body">
                       <div className="flex justify-end gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleOpenDialog(item)}
-                        >
+                        <Button variant="ghost" size="sm" onClick={() => handleOpenDialog(item)}>
                           <Edit className="w-4 h-4" />
                         </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteItem(item.id)}
-                        >
+                        <Button variant="ghost" size="sm" onClick={() => handleDeleteItem(item.id)}>
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
@@ -242,7 +223,7 @@ export function PortfolioSectionEditor({
 
       <div className="flex justify-end">
         <Button onClick={onSave} disabled={isSaving} size="lg">
-          {isSaving ? "保存中..." : "すべて保存"}
+          {isSaving ? '保存中...' : 'すべて保存'}
         </Button>
       </div>
 
@@ -251,11 +232,9 @@ export function PortfolioSectionEditor({
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {editingItem ? "ポートフォリオを編集" : "新しいポートフォリオを追加"}
+              {editingItem ? 'ポートフォリオを編集' : '新しいポートフォリオを追加'}
             </DialogTitle>
-            <DialogDescription>
-              ポートフォリオカードの情報を入力してください
-            </DialogDescription>
+            <DialogDescription>ポートフォリオカードの情報を入力してください</DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
@@ -276,9 +255,7 @@ export function PortfolioSectionEditor({
               <Textarea
                 id="description"
                 value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={4}
                 placeholder="プロジェクトの説明..."
               />
@@ -290,19 +267,12 @@ export function PortfolioSectionEditor({
               <Input
                 id="imageUrl"
                 value={formData.imageUrl}
-                onChange={(e) =>
-                  setFormData({ ...formData, imageUrl: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 placeholder="https://..."
               />
               {formData.imageUrl && (
                 <div className="mt-2 w-32 h-32 relative rounded overflow-hidden border">
-                  <Image
-                    src={formData.imageUrl}
-                    alt="Preview"
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={formData.imageUrl} alt="Preview" fill className="object-cover" />
                 </div>
               )}
             </div>
@@ -312,10 +282,8 @@ export function PortfolioSectionEditor({
               </Label>
               <Input
                 id="linkUrl"
-                value={formData.linkUrl || ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, linkUrl: e.target.value || undefined })
-                }
+                value={formData.linkUrl || ''}
+                onChange={(e) => setFormData({ ...formData, linkUrl: e.target.value || undefined })}
                 placeholder="https://example.com"
               />
             </div>
@@ -331,4 +299,3 @@ export function PortfolioSectionEditor({
     </div>
   );
 }
-

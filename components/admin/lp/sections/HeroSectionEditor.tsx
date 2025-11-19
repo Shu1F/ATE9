@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { HeroContent } from "@/types/landing";
-import { CharacterCountTextarea } from "../CharacterCountTextarea";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { HeroContent } from '@/types/landing';
+import type { JSX } from 'react';
+import { CharacterCountTextarea } from '../CharacterCountTextarea';
 
 type HeroSectionEditorProps = {
   hero: HeroContent;
@@ -19,7 +20,7 @@ export function HeroSectionEditor({
   onChange,
   onSave,
   isSaving,
-}: HeroSectionEditorProps) {
+}: HeroSectionEditorProps): JSX.Element {
   return (
     <div className="space-y-6">
       <div>
@@ -34,9 +35,7 @@ export function HeroSectionEditor({
         <Card>
           <CardHeader>
             <CardTitle>編集</CardTitle>
-            <CardDescription>
-              LP の Hero セクションに表示される内容を編集します
-            </CardDescription>
+            <CardDescription>LP の Hero セクションに表示される内容を編集します</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <CharacterCountTextarea
@@ -72,12 +71,8 @@ export function HeroSectionEditor({
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label
-                  htmlFor="ctaLabel"
-                  className="text-text-headings"
-                >
-                  CTA Label{" "}
-                  <span className="text-text-body/70">(ボタンテキスト)</span>
+                <Label htmlFor="ctaLabel" className="text-text-headings">
+                  CTA Label <span className="text-text-body/70">(ボタンテキスト)</span>
                 </Label>
                 <Input
                   id="ctaLabel"
@@ -87,10 +82,7 @@ export function HeroSectionEditor({
                 />
               </div>
               <div className="space-y-2">
-                <Label
-                  htmlFor="ctaLink"
-                  className="text-text-headings"
-                >
+                <Label htmlFor="ctaLink" className="text-text-headings">
                   CTA Link <span className="text-text-body/70">(リンク先)</span>
                 </Label>
                 <Input
@@ -103,10 +95,7 @@ export function HeroSectionEditor({
             </div>
 
             <div className="space-y-2">
-              <Label
-                htmlFor="imageUrl"
-                className="text-text-headings"
-              >
+              <Label htmlFor="imageUrl" className="text-text-headings">
                 Image URL <span className="text-text-body/70">(画像URL)</span>
               </Label>
               <Input
@@ -119,7 +108,7 @@ export function HeroSectionEditor({
 
             <div className="flex justify-end pt-4">
               <Button onClick={onSave} disabled={isSaving}>
-                {isSaving ? "保存中..." : "保存"}
+                {isSaving ? '保存中...' : '保存'}
               </Button>
             </div>
           </CardContent>
@@ -129,16 +118,12 @@ export function HeroSectionEditor({
         <Card>
           <CardHeader>
             <CardTitle>プレビュー</CardTitle>
-            <CardDescription>
-              編集内容のプレビュー（簡易表示）
-            </CardDescription>
+            <CardDescription>編集内容のプレビュー（簡易表示）</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="bg-black text-white p-8 rounded-lg space-y-4 min-h-[400px] flex flex-col justify-center">
-              <h1 className="text-3xl font-bold">{hero.heading || "見出し"}</h1>
-              <p className="text-white/80">
-                {hero.subheading || "サブコピー"}
-              </p>
+              <h1 className="text-3xl font-bold">{hero.heading || '見出し'}</h1>
+              <p className="text-white/80">{hero.subheading || 'サブコピー'}</p>
               {hero.ctaLabel && (
                 <div className="pt-4">
                   <button className="bg-red-600 px-4 py-2 rounded text-sm font-bold">
@@ -153,4 +138,3 @@ export function HeroSectionEditor({
     </div>
   );
 }
-

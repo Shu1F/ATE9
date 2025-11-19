@@ -1,14 +1,21 @@
-"use client";
+'use client';
 
-import { fadeInUp, hoverScale, motionTransition, staggerContainer, viewportOnce } from "@/lib/motion/variants";
-import type { ServicesContent } from "@/types/landing";
-import { motion } from "framer-motion";
+import {
+  fadeInUp,
+  hoverScale,
+  motionTransition,
+  staggerContainer,
+  viewportOnce,
+} from '@/lib/motion/variants';
+import type { ServicesContent } from '@/types/landing';
+import { motion } from 'framer-motion';
+import type { JSX } from 'react';
 
 type SectionServicesProps = {
   content: ServicesContent;
 };
 
-export function SectionServices({ content }: SectionServicesProps) {
+export function SectionServices({ content }: SectionServicesProps): JSX.Element {
   return (
     <section className="py-24 px-10" id="services">
       <div className="max-w-6xl mx-auto">
@@ -52,9 +59,9 @@ export function SectionServices({ content }: SectionServicesProps) {
                 whileHover={{ y: -4 }}
               >
                 {/* ベースのダークグラデーション */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent" />
                 {/* ホバー時にブランドレッドがふわっと乗るレイヤー */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 bg-gradient-to-br from-ate9-red/40 via-transparent to-transparent mix-blend-screen transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 opacity-0 bg-linear-to-br from-ate9-red/40 via-transparent to-transparent mix-blend-screen transition-opacity duration-300 group-hover:opacity-100" />
 
                 <div className="relative z-10 flex flex-col gap-4">
                   <h3 className="text-white text-lg font-semibold tracking-[-0.01em] transition-colors duration-300 group-hover:text-ate9-red-light">
@@ -77,7 +84,7 @@ export function SectionServices({ content }: SectionServicesProps) {
 
                 <motion.div
                   className="pointer-events-none absolute inset-0 rounded-xl border-2 border-transparent"
-                  whileHover={{ borderColor: "rgb(242, 66, 109)" }}
+                  whileHover={{ borderColor: 'rgb(242, 66, 109)' }}
                   transition={motionTransition.fast}
                 />
               </motion.div>

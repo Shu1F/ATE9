@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { drawLine, viewportOnce } from "@/lib/motion/variants";
-import { motion } from "framer-motion";
+import { drawLine, viewportOnce } from '@/lib/motion/variants';
+import { motion } from 'framer-motion';
+import type { JSX } from 'react';
 
 const cardFadeIn = {
   hidden: { opacity: 0, y: 24 },
@@ -36,14 +37,14 @@ const subtleFadeInUp = {
 };
 
 const coreValues = [
-  "揺るがない意思と、自分の足で立ち続ける覚悟",
-  "攻めの姿勢と、言葉より先に動く圧倒的行動力",
-  "平凡や「当たり前」への反逆と再定義",
-  "仲間とともに限界を超えていく熱量と連帯",
-  "結果に責任を持つ、実力主義のスタンス",
+  '揺るがない意思と、自分の足で立ち続ける覚悟',
+  '攻めの姿勢と、言葉より先に動く圧倒的行動力',
+  '平凡や「当たり前」への反逆と再定義',
+  '仲間とともに限界を超えていく熱量と連帯',
+  '結果に責任を持つ、実力主義のスタンス',
 ];
 
-export function SectionBrandPhilosophy() {
+export function SectionBrandPhilosophy(): JSX.Element {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-10" id="brand-philosophy">
       <motion.div
@@ -64,10 +65,7 @@ export function SectionBrandPhilosophy() {
               <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-[-0.015em]">
                 Brand Philosophy
               </h2>
-              <motion.div
-                className="w-16 h-0.5 bg-ate9-red"
-                variants={drawLine}
-              />
+              <motion.div className="w-16 h-0.5 bg-ate9-red" variants={drawLine} />
               <p className="text-xs md:text-sm text-white/60">私たちは何者か</p>
             </div>
 
@@ -82,9 +80,7 @@ export function SectionBrandPhilosophy() {
                   <br />
                   夢を食らい、限界を超え、世界を変える。
                 </p>
-                <p>
-                  理想は願うものではなく、自らの手で飲み込み、現実にするものだ。
-                </p>
+                <p>理想は願うものではなく、自らの手で飲み込み、現実にするものだ。</p>
               </div>
             </div>
 
@@ -106,7 +102,7 @@ export function SectionBrandPhilosophy() {
                   className="relative"
                   variants={subtleFadeInUp}
                   whileHover={{ y: -2, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                 >
                   <div className="flex gap-3">
                     <span className="mt-1 h-2.5 w-2.5 rounded-full bg-ate9-red" />
@@ -126,7 +122,7 @@ export function SectionBrandPhilosophy() {
                   className="relative"
                   variants={subtleFadeInUp}
                   whileHover={{ y: -2, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                 >
                   <div className="flex gap-3">
                     <span className="mt-1 h-2.5 w-2.5 rounded-full bg-ate9-red" />
@@ -146,7 +142,7 @@ export function SectionBrandPhilosophy() {
                   className="relative"
                   variants={subtleFadeInUp}
                   whileHover={{ y: -2, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                 >
                   <div className="flex gap-3">
                     <span className="mt-1 h-2.5 w-2.5 rounded-full bg-ate9-red" />
@@ -154,9 +150,7 @@ export function SectionBrandPhilosophy() {
                       <p className="text-sm md:text-base text-white font-semibold">
                         <span className="text-ate9-red">E</span> = Evolve / Elevate / Empower
                       </p>
-                      <p className="text-xs text-white/70">
-                        （進化・高める・力を与える）
-                      </p>
+                      <p className="text-xs text-white/70">（進化・高める・力を与える）</p>
                       <p className="text-sm text-white/70 leading-relaxed">
                         成功で終わらず、常に進化を求め、仲間とともに高まり合い、世界に影響を与えていく。
                       </p>
@@ -172,7 +166,7 @@ export function SectionBrandPhilosophy() {
                 ATE9 = Ate Nine = 「限界（9）を食らった存在」。
               </p>
               <p className="max-w-3xl text-sm md:text-base text-white/70 leading-relaxed">
-                <strong className="text-white">8（＝無限の仲間たち）</strong> ×{" "}
+                <strong className="text-white">8（＝無限の仲間たち）</strong> ×{' '}
                 <strong className="text-ate9-red">9（＝常識や限界）</strong> を超えていく。
                 俺たちは、常識を打ち破る。時代を動かす。未来を創る。
               </p>
@@ -191,7 +185,8 @@ export function SectionBrandPhilosophy() {
               </p>
               <div className="space-y-2">
                 <p className="text-sm md:text-base text-white/80 leading-relaxed">
-                  シンボルの「<span className="text-ate9-red font-bold">9</span>」は、常識を超える視点。
+                  シンボルの「<span className="text-ate9-red font-bold">9</span>
+                  」は、常識を超える視点。
                 </p>
                 <p className="text-sm md:text-base text-white/70 leading-relaxed">
                   宇宙的でポジティブな反逆。世界の枠組みそのものに挑む意思を表す。
@@ -221,7 +216,9 @@ export function SectionBrandPhilosophy() {
                   <p className="text-sm text-white font-semibold">
                     <span className="text-ate9-red">E</span> = Evolve / Elevate / Empower
                   </p>
-                  <p>成功で終わらず、常に進化を求め、仲間とともに高まり合い、世界に影響を与えていく。</p>
+                  <p>
+                    成功で終わらず、常に進化を求め、仲間とともに高まり合い、世界に影響を与えていく。
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-white font-semibold">

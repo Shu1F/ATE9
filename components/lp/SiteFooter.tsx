@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import { fadeInUp, viewportOnce } from "@/lib/motion/variants";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { fadeInUp, viewportOnce } from '@/lib/motion/variants';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import type { JSX } from 'react';
 
-export function SiteFooter() {
+export function SiteFooter(): JSX.Element {
   return (
     <motion.footer
       className="bg-black border-t border-ate9-gray mt-16"
@@ -23,16 +24,10 @@ export function SiteFooter() {
       }}
     >
       <div className="max-w-6xl mx-auto px-10 py-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
-        <motion.p
-          className="text-white/80 text-sm font-medium"
-          variants={fadeInUp}
-        >
+        <motion.p className="text-white/80 text-sm font-medium" variants={fadeInUp}>
           We are not a company. We are a family.
         </motion.p>
-        <motion.div
-          className="flex flex-col items-center md:items-end gap-4"
-          variants={fadeInUp}
-        >
+        <motion.div className="flex flex-col items-center md:items-end gap-4" variants={fadeInUp}>
           <div className="flex items-center gap-5">
             <Link
               href="#"
