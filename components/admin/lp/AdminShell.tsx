@@ -4,7 +4,7 @@ import { saveLandingContent } from '@/services/cms/landing';
 import type { LandingContent } from '@/types/landing';
 import { useRouter } from 'next/navigation';
 import type { JSX } from 'react';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { SectionTabs } from './SectionTabs';
 import { AboutSectionEditor } from './sections/AboutSectionEditor';
@@ -21,10 +21,16 @@ type ActiveSection = 'hero' | 'about' | 'mission' | 'services' | 'portfolio';
 
 export function AdminShell({ initialContent }: AdminShellProps): JSX.Element {
   const [content, setContent] = useState(initialContent);
+  const contentRef = useRef(content);
   const [activeSection, setActiveSection] = useState<ActiveSection>('hero');
   const [savingSection, setSavingSection] = useState<ActiveSection | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+
+  // contentが更新されたら、refも更新する
+  useEffect(() => {
+    contentRef.current = content;
+  }, [content]);
 
   // initialContentが変更されたときにローカルステートを更新
   useEffect(() => {
@@ -35,7 +41,8 @@ export function AdminShell({ initialContent }: AdminShellProps): JSX.Element {
     setSavingSection(section);
     startTransition(async () => {
       try {
-        await saveLandingContent(content);
+        // refから最新のcontentを取得
+        await saveLandingContent(contentRef.current);
         // サーバー側のデータを再取得して、最新の状態を反映
         router.refresh();
         toast.success('保存しました', {
